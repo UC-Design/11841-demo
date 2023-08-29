@@ -29,6 +29,19 @@
 						//log the data to the browser
 						console.log(data);
 
+						data.data.forEach(item => {
+							console.log(item);
+							//create a list item
+							const listItem = document.createElement('li');
+							//add the content to it
+							listItem.textContent = item.title;
+
+							//append the children to the parent ul
+							exhListItem.appendChild(listItem);
+
+						});
+
+
 					} catch (error) {
 						console.log('error: ', error);
 					}
