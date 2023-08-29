@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Test</title>
+	</head>
+
+	<body>
+		<h1>Exhibitions</h1>
+		<ul id="exhibitions-list"></ul>
+
+			<script>
+				//this is my API key from NMA website
+				const apikey = "dUE8AYylCvyTMEdOCrKBMJd4SBb55hce";
+				const nmaURL = "https://data.nma.gov.au/object?apikey" + apikey;
+
+				//query the NMA API
+				const nmaAPI ="https://data.nma.gov.au/object?title=*";
+
+				// function that will load exhibitions
+				async function getExhibitions() {
+					const exhListItem = document.getElementById('exhibitions-list');
+
+					try {
+						//go get the data from NMA
+						const response = await fetch(nmaAPI);
+						//return it in JSON
+						const data = await response.json();
+
+						//log the data to the browser
+						console.log(data);
+
+					} catch (error) {
+						console.log('error: ', error);
+					}
+
+				}
+
+				// call the function so it executes
+				getExhibitions()
+
+			</script>
+
+	</body>
+</html>
