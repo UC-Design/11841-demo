@@ -1,57 +1,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Test</title>
+		<title>11841 - NMA test</title>
+		<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 	</head>
 
 	<body>
-		<h1>Exhibitions</h1>
-		<ul id="exhibitions-list"></ul>
+		<h1>Objects</h1>
 
-			<script>
-				//this is my API key from NMA website
-				const apikey = "dUE8AYylCvyTMEdOCrKBMJd4SBb55hce";
-				const nmaURL = "https://data.nma.gov.au/object?apikey" + apikey;
+		<div id="objectsContainer">
 
-				//query the NMA API
-				const nmaAPI ="https://data.nma.gov.au/object?title=*";
+		</div>
 
-				// function that will load exhibitions
-				async function getExhibitions() {
-					const exhListItem = document.getElementById('exhibitions-list');
-
-					try {
-						//go get the data from NMA
-						const response = await fetch(nmaAPI);
-						//return it in JSON
-						const data = await response.json();
-
-						//log the data to the browser
-						console.log(data);
-
-						data.data.forEach(item => {
-							console.log(item);
-							//create a list item
-							const listItem = document.createElement('li');
-							//add the content to it
-							listItem.textContent = item.title;
-
-							//append the children to the parent ul
-							exhListItem.appendChild(listItem);
-
-						});
-
-
-					} catch (error) {
-						console.log('error: ', error);
-					}
-
-				}
-
-				// call the function so it executes
-				getExhibitions()
-
-			</script>
-
+		<script src="assets/js/wk5.js"> </script>
 	</body>
 </html>

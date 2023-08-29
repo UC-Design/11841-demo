@@ -1,0 +1,19 @@
+
+
+#objectsContainer {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+#objectsContainer div {
+	background-color: #000;
+	justify-content: center;
+	vertical-align: middle;
+}
+#objectsContainer h2 {
+	color: #fff;
+}
+
+
+div img {
+	max-width: 80%;
+}
