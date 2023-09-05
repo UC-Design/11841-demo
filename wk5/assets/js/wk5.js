@@ -26,14 +26,32 @@ async function getExhibitions() {
 
 			//dig down till we find the image
 			const image = item.hasVersion[0].hasVersion[1].identifier;
-			console.log(image);
+
+			//image array
+			const img2 = item.hasVersion[0].hasVersion;
+
+			//define empty img url for html tag
+			let imgurl;
+
+			// for loop so we can get the index
+			for (i=0; i < img2.length; i++) {
+				// match on large image
+				if (img2[i].version === 'large image') {
+					console.log(img2[i].identifier);
+
+					imgurl = img2[i].identifier;
+				}
+			}
+
+
+			// console.log(image);
 
 			//create a container
 			const itemContainer = document.createElement('div');
 
 			//create our html tags
 			const title = '<h2>'+ item.title + '</h2>';
-			const imageTag = '<img src="' + image +'" alt="image">';
+			const imageTag = '<div class="imgContainer"><img src="' + imgurl +'" alt="image"></div>';
 
 			//add all the html tags to the listItem
 			itemContainer.innerHTML = title + imageTag;
