@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<title>Weather App</title>
-		<style></style>
+		<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+
 	</head>
 	<body>
 		<h1>Ben's awesome weather app</h1>
@@ -10,54 +11,8 @@
 
 		</div>
 
-
-		<script>
-			//function to get location using geolocation API
-			function getLocation() {
-				console.log('getting location');
-
-				if(navigator.geolocation) {
-					//get the location from browser
-					navigator.geolocation.getCurrentPosition(getWeather);
-				} else {
-					// can't get location
-					const weatherInfo = document.getElementById('weather-info');
-					weatherInfo.innerHTML = '<p>Geolocation not supported.</p>';
-				}
-			}
-
-			async function getWeather(position) {
-				console.log(position);
-				const latitude = position.coords.latitude;
-				const longitude = position.coords.longitude;
-				//new key from weatherapi.com
-				const apiKey = '8c27e7fb4cb24063af105842230509';
-
-				const locStr = latitude + ',' + longitude;
-				console.log(locStr);
-
-				try {
-					const response = await fetch('http://api.weatherapi.com/v1/current.json?key='+apiKey+'&q='+locStr+'&aqi=no');
-					const data = await response.json();
-					console.log(data);
-
-					const weatherInfo = document.getElementById('weather-info');
-
-					const currentLocation = "<h2>" + data.location.name + "</h2>";
-					const currentTemp = "<p>" + data.current.temp_c + "</p>";
-
-					weatherInfo.innerHTML = currentLocation + currentTemp;
-
-				} catch(error) {
-					console.log('Error: ', error);
-				}
-
-			};
+		<script src="assets/js/wk6.js"> </script>
 
 
-			//call the function
-			getLocation();
-
-		</script>
 	</body>
 </html>
