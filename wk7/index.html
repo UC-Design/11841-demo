@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Test</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+
+</head>
+
+<body>
+	<h1>The big test</h1>
+	<div id="container">
+
+	</div>
+
+	<!-- <script src="assets/js/wk6.js"> </script> -->
+
+	<script>
+
+		//clinet id : 505435512621-5r5oi80m54uk68118jcfhjqttlq903p5.apps.googleusercontent.com
+		//api key AIzaSyA3z_1fHGqF2WJbKvZXpGWLMAkpO-mejZs
+
+		async function getData() {
+			let apiCall = '';
+
+			try {
+				//api call includes our key + lat long
+				const response = await fetch(apiCall);
+				const data = await response.json();
+				//log the data returned
+				console.log(data);
+
+			} catch (error) {
+				//show any errors in the console for googling
+				console.log('Error: ', error);
+			};
+		}
+
+		getData();
+
+	</script>
+
+</body>
+
+</html>

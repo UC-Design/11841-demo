@@ -5,8 +5,8 @@ const nmaURL = "https://data.nma.gov.au/object?apikey" + apikey;
 //query the NMA API
 const nmaAPI ="https://data.nma.gov.au/object?title=*";
 
-const nmaImg = "https://data.nma.gov.au/object?limit=20&media=*&medium=wood"
-
+const mediumQuery = 'wood' ;
+const searchUrl = 'https://data.nma.gov.au/object?limit=20&media=*&medium=' + mediumQuery;
 
 // function that will load exhibitions
 async function getExhibitions() {
@@ -14,47 +14,53 @@ async function getExhibitions() {
 
 	try {
 		//go get the data from NMA
-		const response = await fetch(nmaImg);
+		const response = await fetch(searchUrl);
 		//return it in JSON
-		const data = await response.json();
+		const apiData = await response.json();
 
 		//log the data to the browser
-		console.log(data);
+		console.log(apiData);
 
-		data.data.forEach(item => {
-			// console.log(item);
+		//loop through the data
+		// remember, apiData is what we've called the data returned from the API
+		// apiData.data is the actual data array returned by the API call
+		apiData.data.forEach(item => {
+			//log each item
+			console.log(item);
 
-			//dig down till we find the image
-			const image = item.hasVersion[0].hasVersion[1].identifier;
+			//the data is messy and we want to return an image so we need to find it
+			// use the data object in the console to work out where it is
 
-			//image array
-			const img2 = item.hasVersion[0].hasVersion;
+			// image array
+			const imgArr = item.hasVersion[0].hasVersion;
 
 			//define empty img url for html tag
 			let imgurl;
 
-			// for loop so we can get the index
-			for (i=0; i < img2.length; i++) {
+			// we need to use a for loop now so we can get the 'i' - the index number
+			for (i=0; i < imgArr.length; i++) {
 				// match on large image
-				if (img2[i].version === 'large image') {
-					console.log(img2[i].identifier);
-
-					imgurl = img2[i].identifier;
+				if (imgArr[i].version === 'large image') {
+					console.log(imgArr[i].identifier);
+					imgurl = imgArr[i].identifier;
 				}
 			}
-
-
-			// console.log(image);
 
 			//create a container
 			const itemContainer = document.createElement('div');
 
-			//create our html tags
-			const title = '<h2>'+ item.title + '</h2>';
-			const imageTag = '<div class="imgContainer"><img src="' + imgurl +'" alt="image"></div>';
+			// option 1, make a const for each item
+			// const title = '<h2>'+ item.title + '</h2>';
+			// const imageTag = '<div class="imgContainer"><img src="' + imgurl +'" alt="image"></div>';
 
-			//add all the html tags to the listItem
-			itemContainer.innerHTML = title + imageTag;
+			// add all the html tags to the listItem
+			// itemContainer.innerHTML = title + imageTag;
+
+			// option 2, use template literals
+			itemContainer.innerHTML = `
+			<h2>${item.title}</h2>
+			<div class="imgContainer"><img src="${imgurl}" alt="image"></div>
+			`;
 
 			//append the children to the parent ul
 			objectsContainer.appendChild(itemContainer);
