@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>11841 - NMA test</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+</head>
+
+<body>
+	<h1>Objects</h1>
+
+	<div id="objectsContainer">
+	</div>
+
+	<div id="test"></div>
+
+	<script>
+
+		//this is my API key from NMA website
+		const apiKey = "dUE8AYylCvyTMEdOCrKBMJd4SBb55hce";
+		const nmaURL = "https://data.nma.gov.au/object?apikey" + apiKey;
+
+		const objectAPI = 'https://data.nma.gov.au/object/14693&apikey=' + apiKey;
+		// const imageAPI = "https://data.nma.gov.au/object?limit=20&media=*&medium=*"
+
+
+		async function getObjects() {
+			try {
+				//go get the data from NMA
+				const response = await fetch(objectAPI);
+				//return it in JSON
+				const apiData = await response.json();
+
+				//log the data to the browser
+				console.log(apiData);
+
+				// by looking through the output in the console,
+				// I can see the data I want is deeply nested
+				apiData.data.forEach(item => {
+					console.log(item);
+
+					//the data is messy and we want to return an image so we need to find it
+					// use the data object in the console to work out where it is
+
+					// image array is heavily nested
+					const imgArr = item.hasVersion[0].hasVersion;
+
+					//define empty img url for html tag
+					let imgurl;
+
+					// we need to use a for loop now so we can get the 'i' - the index number
+					for (i = 0; i < imgArr.length; i++) {
+						// match on large image
+						if (imgArr[i].version === 'large image') {
+							console.log(imgArr[i].identifier);
+							imgurl = imgArr[i].identifier;
+						}
+					}
+
+					// 1. create a container
+					const itemContainer = document.createElement('div');
+
+					// 2. use template literals to easily embed the data in the string
+					itemContainer.innerHTML = `
+					<h2>${item.title}</2>
+					<div class="imgContainer"><img src="${imgurl}" alt="image"></div>
+					`;
+
+					// 3. append to the page
+					objectsContainer.appendChild(itemContainer);
+
+				});
+
+
+			} catch (error) {
+				console.log('error: ', error);
+			}
+		}
+
+		getObjects();
+	</script>
+</body>
+
+</html>
